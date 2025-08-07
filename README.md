@@ -30,3 +30,6 @@ Intersection Observer API: Animaciones al hacer scroll
 File API: Manejo avanzado de archivos
 LocalStorage: Persistencia de datos en el navegador
 Mobile First: Diseño pensado primero para móviles
+
+<img width="1919" height="999" alt="image" src="https://github.com/user-attachments/assets/4f38ef50-2590-473c-8496-00fc99c62010" />
+
