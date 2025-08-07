@@ -33,3 +33,14 @@ Mobile First: Diseño pensado primero para móviles
 
 <img width="1919" height="999" alt="image" src="https://github.com/user-attachments/assets/4f38ef50-2590-473c-8496-00fc99c62010" />
 
+
+<img width="1916" height="998" alt="image" src="https://github.com/user-attachments/assets/92830363-d447-427a-821a-00189168271d" />
+
+<img width="1914" height="999" alt="image" src="https://github.com/user-attachments/assets/378aa976-bdcf-48f3-83da-d465a941ce89" />
+
+
+<img width="1916" height="996" alt="image" src="https://github.com/user-attachments/assets/096d2ae3-75dd-487b-a70c-1dfc95f9c358" />
+
+
+
+
