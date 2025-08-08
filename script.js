@@ -47,16 +47,16 @@ let projects = [
         category: "web",
         tech: "PHP, MySQL, Bootstrap, JavaScript",
         description: "Sistema completo para la gestión de estudiantes, docentes y cursos en instituciones educativas. Incluye módulos de inscripciones, calificaciones y reportes.",
-        url: "https://github.com/mairon-salazar/sistema-academico",
-        github: "https://github.com/mairon-salazar/sistema-academico"
+        url: "",
+        github: "https://github.com/maysalazar16/sistema-academico"
     },
     {
         title: "App de Control de Inventario",
-        category: "web",
+        category: "web", 
         tech: "React, Node.js, MongoDB, Express",
         description: "Aplicación web para el control de inventarios en tiempo real con alertas automáticas, códigos de barras y reportes detallados.",
-        url: "https://inventario-app.netlify.app",
-        github: "https://github.com/mairon-salazar/inventario-app"
+        url: "",
+        github: "https://github.com/maysalazar16/inventario-app"
     },
     {
         title: "API REST para E-learning",
@@ -64,7 +64,7 @@ let projects = [
         tech: "Python, Django, PostgreSQL, JWT",
         description: "API robusta para plataforma de aprendizaje en línea con autenticación, gestión de cursos, progreso de estudiantes y certificaciones.",
         url: "",
-        github: "https://github.com/mairon-salazar/elearning-api"
+        github: "https://github.com/maysalazar16/elearning-api"
     },
     {
         title: "Dashboard Analítico SENA",
@@ -72,7 +72,7 @@ let projects = [
         tech: "Vue.js, Chart.js, Laravel, MySQL",
         description: "Dashboard interactivo para visualizar métricas académicas y estadísticas de rendimiento de estudiantes del SENA Regional Valle.",
         url: "",
-        github: "https://github.com/mairon-salazar/sena-dashboard"
+        github: "https://github.com/maysalazar16/sena-dashboard"
     }
 ];
 
@@ -309,9 +309,29 @@ function handleContactSubmit() {
         return;
     }
 
-    // Simulate form submission
-    showNotification('¡Mensaje enviado correctamente! Te contactaré pronto.', 'success');
-    document.getElementById('contactForm').reset();
+    // Crear el enlace de mailto con todos los datos
+    const emailSubject = encodeURIComponent(`${subject} - Contacto desde Portfolio`);
+    const emailBody = encodeURIComponent(
+        `Hola Mairon,\n\n` +
+        `Mi nombre es ${name} y me gustaría contactarte.\n\n` +
+        `Mensaje:\n${message}\n\n` +
+        `Mis datos de contacto:\n` +
+        `Email: ${email}\n\n` +
+        `Enviado desde tu portfolio web.`
+    );
+    
+    const mailtoLink = `mailto:maironsalazar16@gmail.com?subject=${emailSubject}&body=${emailBody}`;
+    
+    // Abrir el cliente de correo
+    window.location.href = mailtoLink;
+    
+    // Mostrar confirmación
+    showNotification('¡Redirigiendo a tu cliente de correo! El mensaje está pre-llenado.', 'success');
+    
+    // Limpiar formulario después de un momento
+    setTimeout(() => {
+        document.getElementById('contactForm').reset();
+    }, 2000);
 }
 
 function isValidEmail(email) {
