@@ -293,40 +293,103 @@ function initializeForms() {
     }
 }
 
-function handleContactSubmit() {
-    const name = document.getElementById('contactName').value.trim();
-    const email = document.getElementById('contactEmail').value.trim();
-    const subject = document.getElementById('contactSubject').value.trim();
-    const message = document.getElementById('contactMessage').value.trim();
+// ============ EMAIL CONFIGURATION ============
+// Configuración de EmailJS - Reemplaza con tus propias claves
+const EMAIL_CONFIG = {
+    serviceID: 'service_tu_servicio', // Reemplaza con tu Service ID
+    templateID: 'template_tu_plantilla', // Reemplaza con tu Template ID
+    publicKey: 'tu_clave_publica' // Reemplaza con tu Public Key
+};
 
-    if (!name || !email || !subject || !message) {
+// Inicializar EmailJS
+function initializeEmailJS() {
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init(EMAIL_CONFIG.publicKey);
+        console.log('✅ EmailJS inicializado correctamente');
+    } else {
+        console.error('❌ EmailJS no está cargado');
+    }
+}
+
+function handleContactSubmit() {
+    const submitButton = document.querySelector('#contactForm button[type="submit"]');
+    const originalText = submitButton.innerHTML;
+    
+    // Obtener datos del formulario
+    const formData = {
+        from_name: document.getElementById('contactName').value.trim(),
+        from_email: document.getElementById('contactEmail').value.trim(),
+        subject: document.getElementById('contactSubject').value.trim(),
+        message: document.getElementById('contactMessage').value.trim(),
+        to_email: 'maironsalazar16@gmail.com', // Tu email
+        reply_to: document.getElementById('contactEmail').value.trim()
+    };
+
+    // Validación
+    if (!formData.from_name || !formData.from_email || !formData.subject || !formData.message) {
         showNotification('Por favor completa todos los campos.', 'error');
         return;
     }
 
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(formData.from_email)) {
         showNotification('Por favor ingresa un email válido.', 'error');
         return;
     }
 
-    // Crear el enlace de mailto con todos los datos
-    const emailSubject = encodeURIComponent(`${subject} - Contacto desde Portfolio`);
+    // Cambiar estado del botón
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 8px;"><div style="width: 16px; height: 16px; border: 2px solid #fff; border-top: 2px solid transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>Enviando...</span>';
+
+    // Verificar si EmailJS está disponible
+    if (typeof emailjs === 'undefined') {
+        // Fallback al método mailto si EmailJS no está disponible
+        console.warn('EmailJS no disponible, usando método fallback');
+        handleEmailFallback(formData, submitButton, originalText);
+        return;
+    }
+
+    // Enviar email con EmailJS
+    emailjs.send(EMAIL_CONFIG.serviceID, EMAIL_CONFIG.templateID, formData)
+        .then(function(response) {
+            console.log('✅ Email enviado:', response.status, response.text);
+            showNotification('¡Mensaje enviado exitosamente! Te contactaré pronto.', 'success');
+            document.getElementById('contactForm').reset();
+            
+            // Restablecer botón
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalText;
+        })
+        .catch(function(error) {
+            console.error('❌ Error al enviar email:', error);
+            
+            // Si falla EmailJS, usar método fallback
+            console.warn('Usando método fallback debido a error en EmailJS');
+            handleEmailFallback(formData, submitButton, originalText);
+        });
+}
+
+function handleEmailFallback(formData, submitButton, originalText) {
+    // Método alternativo usando mailto
+    const emailSubject = encodeURIComponent(`${formData.subject} - Contacto desde Portfolio`);
     const emailBody = encodeURIComponent(
         `Hola Mairon,\n\n` +
-        `Mi nombre es ${name} y me gustaría contactarte.\n\n` +
-        `Mensaje:\n${message}\n\n` +
+        `Mi nombre es ${formData.from_name} y me gustaría contactarte.\n\n` +
+        `Mensaje:\n${formData.message}\n\n` +
         `Mis datos de contacto:\n` +
-        `Email: ${email}\n\n` +
+        `Email: ${formData.from_email}\n\n` +
         `Enviado desde tu portfolio web.`
     );
     
     const mailtoLink = `mailto:maironsalazar16@gmail.com?subject=${emailSubject}&body=${emailBody}`;
     
-    // Abrir el cliente de correo
-    window.location.href = mailtoLink;
+    // Abrir cliente de correo
+    window.open(mailtoLink, '_blank');
     
-    // Mostrar confirmación
-    showNotification('¡Redirigiendo a tu cliente de correo! El mensaje está pre-llenado.', 'success');
+    showNotification('Se ha abierto tu cliente de correo con el mensaje pre-llenado.', 'info');
+    
+    // Restablecer botón
+    submitButton.disabled = false;
+    submitButton.innerHTML = originalText;
     
     // Limpiar formulario después de un momento
     setTimeout(() => {
@@ -469,7 +532,10 @@ function initializeScrollAnimations() {
 
 // ============ INITIALIZATION ============
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all functionality
+    // Initialize EmailJS first
+    initializeEmailJS();
+    
+    // Initialize all other functionality
     typeWriter();
     renderProjects();
     initializeFileUpload();
