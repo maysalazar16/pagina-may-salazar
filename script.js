@@ -73,16 +73,104 @@ let projects = [
         description: "Dashboard interactivo para visualizar métricas académicas y estadísticas de rendimiento de estudiantes del SENA Regional Valle.",
         url: "",
         github: "https://github.com/maysalazar16/sena-dashboard"
+    },
+    {
+        title: "Sistema de Biblioteca Digital",
+        category: "web",
+        tech: "Angular, Spring Boot, PostgreSQL",
+        description: "Plataforma digital para gestión de biblioteca con catálogo online, reservas, multas y sistema de recomendaciones basado en IA.",
+        url: "",
+        github: "https://github.com/maysalazar16/biblioteca-digital"
+    },
+    {
+        title: "App Móvil de Asistencia",
+        category: "mobile",
+        tech: "React Native, Firebase, Expo",
+        description: "Aplicación móvil para control de asistencia con reconocimiento facial, geolocalización y sincronización en tiempo real.",
+        url: "",
+        github: "https://github.com/maysalazar16/asistencia-mobile"
+    },
+    {
+        title: "Chatbot Educativo IA",
+        category: "api",
+        tech: "Python, FastAPI, OpenAI, Redis",
+        description: "Chatbot inteligente para resolver dudas académicas de estudiantes, integrado con GPT y base de conocimientos personalizada.",
+        url: "",
+        github: "https://github.com/maysalazar16/chatbot-educativo"
+    },
+    {
+        title: "Plataforma de Certificaciones",
+        category: "web",
+        tech: "Next.js, Strapi, PostgreSQL, AWS",
+        description: "Sistema para emisión y verificación de certificados digitales con blockchain, QR codes y validación online.",
+        url: "",
+        github: "https://github.com/maysalazar16/certificaciones-digitales"
+    },
+    {
+        title: "Sistema de Punto de Venta",
+        category: "desktop",
+        tech: "Electron, React, SQLite, Thermal Printer",
+        description: "Aplicación de escritorio para pequeños comercios con gestión de productos, ventas, clientes e impresión de facturas.",
+        url: "",
+        github: "https://github.com/maysalazar16/pos-system"
+    },
+    {
+        title: "Marketplace de Servicios",
+        category: "web",
+        tech: "MERN Stack, Stripe, Socket.io, AWS S3",
+        description: "Plataforma web tipo freelancer para conectar profesionales con clientes, sistema de pagos y chat en tiempo real.",
+        url: "",
+        github: "https://github.com/maysalazar16/marketplace-servicios"
+    },
+    {
+        title: "Gestor de Proyectos Agile",
+        category: "web",
+        tech: "Vue.js, Express, MongoDB, Socket.io",
+        description: "Herramienta colaborativa para gestión de proyectos con metodologías ágiles, tableros kanban y seguimiento de tiempo.",
+        url: "",
+        github: "https://github.com/maysalazar16/agile-project-manager"
+    },
+    {
+        title: "API de Geolocalización",
+        category: "api",
+        tech: "Node.js, Express, MongoDB, Google Maps",
+        description: "API para servicios de geolocalización, cálculo de rutas, puntos de interés y notificaciones por proximidad.",
+        url: "",
+        github: "https://github.com/maysalazar16/geolocalizacion-api"
+    },
+    {
+        title: "Sistema de Reservas Online",
+        category: "web",
+        tech: "React, Ruby on Rails, PostgreSQL, Redis",
+        description: "Plataforma para reservas de espacios y recursos con calendario interactivo, notificaciones y pagos integrados.",
+        url: "",
+        github: "https://github.com/maysalazar16/reservas-online"
+    },
+    {
+        title: "Monitor de Redes IoT",
+        category: "desktop",
+        tech: "Python, Tkinter, MQTT, InfluxDB",
+        description: "Aplicación de monitoreo para dispositivos IoT con dashboards en tiempo real, alertas y análisis histórico.",
+        url: "",
+        github: "https://github.com/maysalazar16/iot-monitor"
+    },
+    {
+        title: "Portfolio Generator CLI",
+        category: "other",
+        tech: "Node.js, Commander.js, Handlebars, Git",
+        description: "Herramienta de línea de comandos para generar portfolios web automáticamente desde datos de GitHub y CV.",
+        url: "",
+        github: "https://github.com/maysalazar16/portfolio-generator"
     }
 ];
 
 function getCategoryColor(category) {
     const colors = {
-        'web': 'var(--primary-color)',
-        'mobile': 'var(--accent-color)',
-        'desktop': '#10b981',
-        'api': '#f59e0b',
-        'other': '#6b7280'
+        'web': 'var(--primary-color)',      // Azul - Desarrollo Web
+        'mobile': 'var(--accent-color)',    // Azul claro - Apps Móviles
+        'desktop': '#10b981',               // Verde - Apps Desktop
+        'api': '#f59e0b',                  // Amarillo - APIs/Backend
+        'other': '#6b7280'                 // Gris - Otros
     };
     return colors[category] || colors.other;
 }
@@ -91,9 +179,9 @@ function getCategoryLabel(category) {
     const labels = {
         'web': 'Desarrollo Web',
         'mobile': 'App Móvil',
-        'desktop': 'Aplicación Desktop',
+        'desktop': 'Aplicación Desktop', 
         'api': 'API/Backend',
-        'other': 'Otro'
+        'other': 'Herramientas'
     };
     return labels[category] || 'Otro';
 }
